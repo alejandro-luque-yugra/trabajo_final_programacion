@@ -1,0 +1,46 @@
+# Función para calcular el consumo de energía en kWh
+def calcular_consumo(potencia_w, tiempo_h):
+    return (potencia_w / 1000) * tiempo_h
+
+# Función para calcular el costo del consumo de energía
+def calcular_costo(consumo_kwh, costo_kwh):
+    return consumo_kwh * costo_kwh
+
+# Datos de entrada
+# Potencia en vatios (W)
+potencia_laptop = 50  # Supongamos que la laptop consume 50W
+potencia_foco = 10    # Supongamos que cada foco consume 10W
+potencia_cargador = 5  # Supongamos que el cargador de celular consume 5W
+potencia_impresora = 30  # Supongamos que la impresora consume 30W
+
+# Tiempo de uso en horas (h)
+tiempo_laptop = 5  # Usamos la laptop 5 horas al día
+tiempo_foco = 6    # Usamos cada foco 6 horas al día
+tiempo_cargador = 3  # Usamos el cargador de celular 3 horas al día
+tiempo_impresora = 1  # Usamos la impresora 1 hora al día
+
+# Costo por kWh en tu área (puede variar)
+costo_kwh = 0.12  # Supongamos que el costo es de $0.12 por kWh
+
+# Cálculo del consumo de energía
+consumo_laptop = calcular_consumo(potencia_laptop, tiempo_laptop)
+consumo_foco = calcular_consumo(potencia_foco, tiempo_foco) * 2  # Tenemos 2 focos
+consumo_cargador = calcular_consumo(potencia_cargador, tiempo_cargador)
+consumo_impresora = calcular_consumo(potencia_impresora, tiempo_impresora)
+
+# Cálculo del costo del consumo de energía
+costo_laptop = calcular_costo(consumo_laptop, costo_kwh)
+costo_foco = calcular_costo(consumo_foco, costo_kwh)
+costo_cargador = calcular_costo(consumo_cargador, costo_kwh)
+costo_impresora = calcular_costo(consumo_impresora, costo_kwh)
+
+# Cálculo del costo total
+costo_total = costo_laptop + costo_foco + costo_cargador + costo_impresora
+
+# Mostrar resultados
+print("Costo del consumo de energía:")
+print(f"Laptop: ${costo_laptop:.2f}")
+print(f"Focos (2): ${costo_foco:.2f}")
+print(f"Cargador de celular: ${costo_cargador:.2f}")
+print(f"Impresora: ${costo_impresora:.2f}")
+print(f"Costo total: ${costo_total:.2f}")
