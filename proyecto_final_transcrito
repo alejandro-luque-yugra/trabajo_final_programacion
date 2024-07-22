@@ -1,67 +1,67 @@
 class Resistor:
-    def __init__(self, resistance):
-        self.resistance = resistance
+    def __init__(self, resistencia):
+        self.resistencia = resistencia
 
-    def voltage(self, current):
-        return current * self.resistance
+    def voltage(self, corriente):
+        return corriente * self.resistencia
 
-    def power(self, current):
-        return current ** 2 * self.resistance
+    def power(self, corriente):
+        return corriente ** 2 * self.resistencia
 
 class Capacitor:
-    def __init__(self, capacitance):
-        self.capacitance = capacitance
+    def __init__(self, capacitancia):
+        self.capacitancia = capacitancia
 
 class Inductor:
-    def __init__(self, inductance):
-        self.inductance = inductance
+    def __init__(self, inductancia):
+        self.inductancia = inductancia
 
 class VoltageSource:
     def __init__(self, voltage):
         self.voltage = voltage
 
-class Circuit:
+class Circuito:
     def __init__(self):
-        self.components = []
+        self.componentess = []
     
-    def add_component(self, component):
-        self.components.append(component)
+    def add_componentes(self, componentes):
+        self.componentess.append(componentes)
     
-    def total_resistance(self):
-        total_resistance = 0
-        for component in self.components:
-            if isinstance(component, Resistor):
-                total_resistance += component.resistance
-        return total_resistance
+    def total_resistencia(self):
+        total_resistencia = 0
+        for componentes in self.componentess:
+            if isinstance(componentes, Resistor):
+                total_resistencia += componentes.resistencia
+        return total_resistencia
     
-    def current(self, voltage):
-        return voltage / self.total_resistance()
+    def corriente(self, voltage):
+        return voltage / self.total_resistencia()
     
-    def analyze(self, voltage_source):
-        current = self.current(voltage_source.voltage)
+    def analize(self, voltage_source):
+        corriente = self.corriente(voltage_source.voltage)
         result = {
             'total_voltage': voltage_source.voltage,
-            'total_resistance': self.total_resistance(),
-            'current': current,
-            'components': []
+            'total_resistencia': self.total_resistencia(),
+            'corriente': corriente,
+            'componentess': []
         }
-        for component in self.components:
-            if isinstance(component, Resistor):
-                voltage_drop = component.voltage(current)
-                power = component.power(current)
-                result['components'].append({
+        for componentes in self.componentess:
+            if isinstance(componentes, Resistor):
+                voltage_drop = componentes.voltage(corriente)
+                power = componentes.power(corriente)
+                result['componentess'].append({
                     'type': 'Resistor',
-                    'resistance': component.resistance,
+                    'resistencia': componentes.resistencia,
                     'voltage_drop': voltage_drop,
                     'power': power
                 })
         return result
 
 # Ejemplo de uso
-circuit = Circuit()
-circuit.add_component(Resistor(10))  # 10 ohm resistor
-circuit.add_component(Resistor(20))  # 20 ohm resistor
+circuito = Circuito()
+circuito.add_componentes(Resistor(10))  # 10 ohm resistor
+circuito.add_componentes(Resistor(20))  # 20 ohm resistor
 voltage_source = VoltageSource(12)  # 12V voltage source
 
-analysis = circuit.analyze(voltage_source)
+analysis = circuito.analize(voltage_source)
 print(analysis)
