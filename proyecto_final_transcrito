@@ -1,0 +1,67 @@
+class Resistor:
+    def __init__(self, resistance):
+        self.resistance = resistance
+
+    def voltage(self, current):
+        return current * self.resistance
+
+    def power(self, current):
+        return current ** 2 * self.resistance
+
+class Capacitor:
+    def __init__(self, capacitance):
+        self.capacitance = capacitance
+
+class Inductor:
+    def __init__(self, inductance):
+        self.inductance = inductance
+
+class VoltageSource:
+    def __init__(self, voltage):
+        self.voltage = voltage
+
+class Circuit:
+    def __init__(self):
+        self.components = []
+    
+    def add_component(self, component):
+        self.components.append(component)
+    
+    def total_resistance(self):
+        total_resistance = 0
+        for component in self.components:
+            if isinstance(component, Resistor):
+                total_resistance += component.resistance
+        return total_resistance
+    
+    def current(self, voltage):
+        return voltage / self.total_resistance()
+    
+    def analyze(self, voltage_source):
+        current = self.current(voltage_source.voltage)
+        result = {
+            'total_voltage': voltage_source.voltage,
+            'total_resistance': self.total_resistance(),
+            'current': current,
+            'components': []
+        }
+        for component in self.components:
+            if isinstance(component, Resistor):
+                voltage_drop = component.voltage(current)
+                power = component.power(current)
+                result['components'].append({
+                    'type': 'Resistor',
+                    'resistance': component.resistance,
+                    'voltage_drop': voltage_drop,
+                    'power': power
+                })
+        return result
+
+# Ejemplo de uso
+circuit = Circuit()
+circuit.add_component(Resistor(10))  # 10 ohm resistor
+circuit.add_component(Resistor(20))  # 20 ohm resistor
+voltage_source = VoltageSource(12)  # 12V voltage source
+
+analysis = circuit.analyze(voltage_source)
+print(analysis)
